@@ -52,7 +52,6 @@ class factura extends CI_Controller
 		 {
 	        $da  = array('cliente' => $_POST['txtcliente'], 'rnc' => $_POST['txtrnc'],
 		'fecha' => $_POST['txtfecha'], 'descripcion' => $_POST['txtdescripcion'] );
-		echo $da;
 		$this->db->insert('factura',$da);
 
 		$id = $this->db->insert_id();
@@ -115,15 +114,17 @@ class factura extends CI_Controller
    	   $pdf->SetFont('Arial','B',12);
    	    $pdf->SetTextColor(87,177,255);
 
-   	   $pdf->Cell(15,6,'Codigo:',0,0,'C');
+   	   $pdf->Cell(25,6,'Codigo:',0,0,'C');
        $pdf->Cell(5,6,$codigo,0,0,'C');
-   	   $pdf->Cell(20,6,'Cliente:',0,0,'C');
-       $pdf->Cell(10,6,$nombre,0,0,'C');
+       $pdf->Ln(6);
+   	   $pdf->Cell(25,6,'Cliente:',0,0,'C');
+       $pdf->Cell(85,6,$nombre,0,0,'C');
+       $pdf->Ln(6);
 	   $pdf->Cell(20,6,'RNC: ',0,0,'C');
    	   $pdf->Cell(10,6,$rnc,0,0,'C');
    	   $pdf->Ln(6);
    	   $pdf->Cell(25,6,'Descripcion: ',0,0,'C');
-       $pdf->Cell(16,6,$descripcion,0,0,'C');    
+       $pdf->Cell(80,6,$descripcion,0,0,'C');    
        $pdf->Ln(6);   
 	   $pdf->Cell(33,6,'Fecha Compra:',0,0,'C');
    	   $pdf->Cell(20,6,$fecha,0,0,'C');
@@ -143,18 +144,18 @@ class factura extends CI_Controller
 		$pdf->SetTextColor(159,169,169);
 		
    	   //salida delos productos comprados
-       $pdf->Cell(125,1, 'Productos Facturados',0,0,'C');
+       $pdf->Cell(175,1, 'Productos Comprados',0,0,'C');
        $pdf->SetTextColor(0,128,0);
        $pdf->Ln(8);
-   	   $pdf->Cell(20,6,'Codigo',1,0,'C',1);
-   	   $pdf->Cell(40,6,'Producto',1,0,'C',1);
+   	   $pdf->Cell(40,6,'Codigo',1,0,'C',1);
+   	   $pdf->Cell(60,6,'Producto',1,0,'C',1);
    	   $pdf->Cell(40,6,'Precio',1,0,'C',1);
    	   $pdf->Cell(40,6,'Cantidad',1,1,'C',1);
    	   $pdf->SetTextColor(160,82,45);
        foreach($resultado1 as $row)
    	   {
-   	   	 $pdf->Cell(20,6,utf8_decode($row['codigo_articulo']),1,0,'C');
-   	   	 $pdf->Cell(40,6,utf8_decode($row['nombre_articulo']),1,0,'C');
+   	   	 $pdf->Cell(40,6,utf8_decode($row['codigo_articulo']),1,0,'C');
+   	   	 $pdf->Cell(60,6,utf8_decode($row['nombre_articulo']),1,0,'C');
    	   	 $pdf->Cell(40,6,utf8_decode($row['precio_articulo']),1,0,'C');
    	   	 $pdf->Cell(40,6,utf8_decode($row['cantidad_articulo']),1,1,'C');
    	   	 $subtotal += $row['precio_articulo']*$row['cantidad_articulo'];
@@ -165,12 +166,12 @@ class factura extends CI_Controller
    	   $total = $subtotal+$impuesto;
        //salida gastos////////////////////////////
        $pdf->SetTextColor(210,105,30);
-   	    $pdf->Cell(10,6,'Subtotal: ',0,0,'C');
-       $pdf->Cell(20,6,$subtotal. "$",0,0,'C');
-   	   $pdf->Cell(10,6,'ITBIS: ',0,0,'C');
-       $pdf->Cell(15,6,$impuesto. "$",0,0,'C');
-	   $pdf->Cell(12,6,'Total: ',0,0,'C');
-   	   $pdf->Cell(10,6,$total . "$",0,0,'C');
+   	    $pdf->Cell(20,6,'Subtotal: ',0,0,'C');
+       $pdf->Cell(23,6,$subtotal. "$",0,1,'C');
+   	   $pdf->Cell(20,6,'ITBIS: ',0,0,'C');
+       $pdf->Cell(23,6,$impuesto. "$",0,1,'C');
+	   $pdf->Cell(23,6,'Total: ',0,0,'C');
+   	   $pdf->Cell(20,6,$total . "$",0,0,'C');
    	   ///////////////////////////////
 
 	   $pdf->Output();

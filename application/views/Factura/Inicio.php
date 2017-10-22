@@ -14,7 +14,7 @@ $CI =& get_instance();
 
 <form action="" method="post">
 	<label for="txtnombre">Buscar x Cliente:</label>
-<input type="text" name="txtnombre">
+<input type="text" title="No se acepta numeros y simbolos extraños" pattern="A-Za-z" name="txtnombre">
 <input class="btn btn-info" type="submit" value="Ir">
 </form>
 
