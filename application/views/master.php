@@ -67,8 +67,6 @@ function calcular()
     txt.type='text';
     txt.setAttribute('name',nombre);
     txt.setAttribute('required','required');
-    txt.setAttribute('pattern','A-Za-z0-9');
-    txt.setAttribute('title','No se acepta caracteres extraños');
     txt.setAttribute('maxlength',30);
     txt.setAttribute('onChange',calcular());
     td.appendChild(txt);
@@ -82,9 +80,7 @@ function calcular()
     txt.type='number';
     txt.setAttribute('name',nombre);
     txt.setAttribute('onChange',calcular());
-    txt.setAttribute('title','Excusame, no puede almacenar valores mayores de 5 caracteres')
     txt.setAttribute('required','required');
-    txt.setAttribute('max',5);
     td.appendChild(txt);
     return td;
   }
